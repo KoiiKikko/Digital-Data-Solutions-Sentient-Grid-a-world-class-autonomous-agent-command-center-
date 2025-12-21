@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DDS Agent | Bio-Digital Neon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --neon-green: #00ff88;
+        --neon-teal: #00e5ff;
+        --deep-cyan: #083344;
+        --space-black: #000000;
+        --alert-red: #e11d48;
+        --terminal-bg: rgba(2, 8, 8, 0.95);
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--space-black);
+        color: #f0fdfa;
+        overflow: hidden;
+      }
+      .mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+      ::-webkit-scrollbar {
+        width: 3px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, transparent, var(--neon-green), transparent);
+        border-radius: 10px;
+      }
+      .neon-glow-green {
+        box-shadow: 0 0 15px rgba(0, 255, 136, 0.4), inset 0 0 5px rgba(0, 255, 136, 0.2);
+      }
+      .text-neon-green {
+        text-shadow: 0 0 8px rgba(0, 255, 136, 0.8), 0 0 2px rgba(255, 255, 255, 0.5);
+      }
+      .text-neon-teal {
+        text-shadow: 0 0 8px rgba(0, 229, 255, 0.8);
+      }
+      .glass-panel {
+        background: rgba(10, 25, 25, 0.75);
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(0, 255, 136, 0.12);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+      }
+      .bg-starfield {
+        background-image: 
+          radial-gradient(1px 1px at 25px 35px, #fff, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 45px 75px, #fff, rgba(0,0,0,0)),
+          radial-gradient(2px 2px at 55px 165px, #88ffcc, rgba(0,0,0,0)),
+          radial-gradient(2px 2px at 95px 45px, #fff, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 135px 85px, #00e5ff, rgba(0,0,0,0)),
+          radial-gradient(1px 1px at 165px 125px, #ddd, rgba(0,0,0,0));
+        background-repeat: repeat;
+        background-size: 250px 250px;
+      }
+      
+      /* CRT & TERMINAL ENHANCEMENTS */
+      .crt-container {
+        position: relative;
+        overflow: hidden;
+        background: var(--terminal-bg);
+      }
+
+      @keyframes crt-flicker {
+        0% { opacity: 0.98; }
+        5% { opacity: 0.95; }
+        10% { opacity: 0.99; }
+        15% { opacity: 0.96; }
+        20% { opacity: 0.99; }
+        25% { opacity: 0.95; }
+        30% { opacity: 0.99; }
+        100% { opacity: 1; }
+      }
+
+      .crt-scanlines::before {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.04));
+        z-index: 2;
+        background-size: 100% 3px, 3px 100%;
+        pointer-events: none;
+        animation: crt-flicker 0.15s infinite;
+      }
+
+      .crt-vignette {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.6) 100%);
+        pointer-events: none;
+        z-index: 3;
+      }
+
+      @keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+      .terminal-cursor {
+        display: inline-block;
+        width: 10px;
+        height: 18px;
+        background: var(--neon-green);
+        margin-left: 2px;
+        vertical-align: middle;
+        animation: blink 1s step-end infinite;
+        box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+      }
+
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+      .thinking-particles {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.08), transparent);
+        animation: shimmer 1.5s infinite linear;
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      .terminal-text {
+        text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
+      }
+
+      @keyframes pulse-neon {
+        0%, 100% { opacity: 1; filter: drop-shadow(0 0 10px var(--neon-green)); }
+        50% { opacity: 0.7; filter: drop-shadow(0 0 5px var(--neon-green)); }
+      }
+      .animate-neon {
+        animation: pulse-neon 2.5s ease-in-out infinite;
+      }
+
+      @keyframes pulse-red-glow {
+        0%, 100% { 
+          box-shadow: 0 0 8px rgba(225, 29, 72, 0.2); 
+          border-color: rgba(225, 29, 72, 0.4);
+          transform: scale(1);
+        }
+        50% { 
+          box-shadow: 0 0 32px rgba(225, 29, 72, 0.5); 
+          border-color: rgba(225, 29, 72, 1);
+          transform: scale(1.005);
+        }
+      }
+      .animate-critical-pulse {
+        animation: pulse-red-glow 2s ease-in-out infinite;
+      }
+
+      .terminal-input {
+        caret-color: transparent;
+      }
+      .terminal-input:focus {
+        outline: none;
+      }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "react": "https://esm.sh/react@^19.2.3",
+        "recharts": "https://esm.sh/recharts@^3.6.0",
+        "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
+      }
+    }
+    </script>
+  </head>
+  <body class="bg-starfield">
+    <div id="root"></div>
+  </body>
+</html>

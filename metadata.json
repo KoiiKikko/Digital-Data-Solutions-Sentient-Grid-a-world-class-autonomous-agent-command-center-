@@ -1,0 +1,7 @@
+{
+  "name": "Copy of DDS Sentient Grid: Autonomous Command Center",
+  "description": "An elite autonomous agent interface featuring holographic video generation, multi-modal grounding, and neural function calling orchestration.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
