@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# --- Sentient Grid Custom Rules ---
+.agent/memory/
+current_status.json
+src/status.json
+.env

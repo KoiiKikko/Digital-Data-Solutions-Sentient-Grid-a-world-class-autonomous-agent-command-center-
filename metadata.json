@@ -1,7 +1,15 @@
 {
   "name": "Copy of DDS Sentient Grid: Autonomous Command Center",
-  "description": "An elite autonomous agent interface featuring holographic video generation, multi-modal grounding, and neural function calling orchestration.",
-  "requestFramePermissions": [
-    "microphone"
+  "description": "An elite autonomous agent interface...",
+  "requestFramePermissions": ["microphone"],
+  "items": [
+    {
+      "name": "IPFS Welcome Sign",
+      "cid": "QmQPeNsJPyVWRMZ77D2MKnreMGLv8mNKVmdV6yK9iRnc9j"
+    },
+    {
+      "name": "GD Archive Genesis",
+      "cid": "QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco"
+    }
   ]
 }
